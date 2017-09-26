@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libjavathreadtools
+URL: http://www.tbd.org
+Description: thread support library for java applications
+Version: @pkgconfig_VERSION@
+Libs: -L${libdir} -ljavathreadtools -lm
+Cflags: -I${includedir}

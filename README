@@ -1,0 +1,58 @@
+# Extensions for Retrieving Extended Runtime Information via the JNI
+
+## Object
+This utility shall  support runtime analysis of complex  Java based applications
+which  consume two  much computational  resources  on Linux  based IoT  embedded
+devices. For  better profiling  it would  be convenient  to be  able to  map the
+processing threads  inside the JVM  to those on the  Linux host OS.  The present
+solution is  based on  a library  written in C  which is  accessed via  the Java
+Native Interface (JNI) using the [swig](http://www.swig.org) library.
+
+The main focus is on how to deal with  the JNI and a build system which is based
+on the autotools and bitbake. The code base currently provides only one function
+but it shall be actually pretty easy and straightforward to extend it to further
+needs.
+
+## How to build
+
+### Build and Runtime Dependencies
+
+Despite the standard Linux build tools you need the Java SDK and the
+[Simplified Wrapper and Interface Generator (swig)](http://www.swig.org) installed
+on your build host.
+
+The home  directory of  the Java SDK  needs to be  specified by  the environment
+variable JDK_HOME.  By default it points  to OpenJDK 7 used  on Ubuntu/debain 64
+bit build  hosts. When  cross compiling  to your target,  the variable  shall be
+defined by the bitbake build environment.
+
+### Compile
+
+Use the following commands to build the library for the host
+
+    ./autogen.sh
+    ./configure
+    make
+    make install
+
+or the following bitbake command to compile for an embedded target:
+
+    bitbake javathreadtools
+
+The recipe file javathreadtools.bb must be stored within you bitbake path.
+
+
+## Invocation
+
+The script test_libjavathreadtools.sh invokes the  Java sample program which you
+find under test/testthreadtools.java. This program  just prints the current host
+OS  thread  identifier and  terminates.  You  can  integrate the  invocation  of
+the  function tt_get_current_thread_id  to  each  of your  Java  threads to  get
+information about the associated threads executed by Linux scheduler.
+
+
+## Licence
+This implementation code stands under the terms of the
+[GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1).
+
+September 2017, Otto Linnemann
