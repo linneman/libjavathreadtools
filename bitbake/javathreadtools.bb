@@ -5,9 +5,13 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=23c2a5e0106b99d75238986559bb5fc6"
 PR = "r0"
 
 FILESPATH =+ "${WORKSPACE}:"
-SRC_URI = "file://peiker/libjavathreadtools \
+# SRC_URI = "file://peiker/libjavathreadtools \
+#            file://test_libjavathreadtools.sh"
+# S = "${WORKDIR}/libjavathreadtools/"
+
+SRC_URI = "git://github.com/linneman/libjavathreadtools.git;protocol=git;tag=master \
            file://test_libjavathreadtools.sh"
-S = "${WORKDIR}/libjavathreadtools/"
+S = "${WORKDIR}/git/"
 
 # EXTRA_OECONF += "CFLAGS='-O1 -g'"
 EXTRA_OECONF += "CPPFLAGS='-D_FORTIFY_SOURCE=2' CFLAGS='-O2 -fpic -fstack-protector-all' LDFLAGS='-fpic'"
